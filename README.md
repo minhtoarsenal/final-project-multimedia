@@ -42,6 +42,8 @@ Finally, to run the client
 $ npm run start 
 ```
 
+Go to http://localhost:8080/audio-video.html to start recording video from webcam or other external device. 
+
 To run the server 
 
 ```
@@ -58,4 +60,4 @@ To stream stored videos, run
 node webm.js 9001 uploads/name-of-file.webm
 ```
 
-Then go to http://host:9001/ to watch video 
+Then go to http://localhost:9001/ to watch video 
