@@ -12,6 +12,7 @@ What things you need to install the software:
 
 - PHP 
 - Npm 
+- Git 
 
 ### Installing
 
@@ -20,7 +21,8 @@ A step by step series of examples that tell you how to get a development env run
 Clone the repository to your local machine
 
 ```
-Give the example
+$ git clone https://github.com/minhtoarsenal/final-project-multimedia.git
+$ cd final-project-multimedia
 ```
 
 Run npm install 
@@ -29,4 +31,31 @@ Run npm install
 $ npm install 
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Next 
+
+```
+$ npm run build  
+```
+Finally, to run the client 
+
+```
+$ npm run start 
+```
+
+To run the server 
+
+```
+$ php -S localhost:8001  
+```
+
+- Note: Recored videos will be stored in folder /uploads 
+
+
+
+To stream stored videos, run 
+
+```
+node webm.js 9001 uploads/name-of-file.webm
+```
+
+Then go to http://host:9001/ to watch video 

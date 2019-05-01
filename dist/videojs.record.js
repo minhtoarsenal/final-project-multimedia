@@ -383,7 +383,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! /media/minhto/data/ICT_Semester_8/multimedia/project/final-project/src/js/videojs.record.js */\"./src/js/videojs.record.js\");\nmodule.exports = __webpack_require__(/*! /media/minhto/data/ICT_Semester_8/multimedia/project/final-project/src/css/videojs.record.scss */\"./src/css/videojs.record.scss\");\n\n\n//# sourceURL=webpack://VideojsRecord/multi_./src/js/videojs.record.js_./src/css/videojs.record.scss?");
+eval("__webpack_require__(/*! /media/minhto/data/ICT_Semester_8/multimedia/project/final-project-multimedia/src/js/videojs.record.js */\"./src/js/videojs.record.js\");\nmodule.exports = __webpack_require__(/*! /media/minhto/data/ICT_Semester_8/multimedia/project/final-project-multimedia/src/css/videojs.record.scss */\"./src/css/videojs.record.scss\");\n\n\n//# sourceURL=webpack://VideojsRecord/multi_./src/js/videojs.record.js_./src/css/videojs.record.scss?");
 
 /***/ }),
 
