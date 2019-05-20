@@ -8,9 +8,11 @@ const path = require('path');
 const port = 8001;
 const app = express();
 
-app.get('/', function(req, res){
-  console.log(util.inspect(req.headers, showHidden=false, depth=0));
+app.get('/play/:id', function(req, res){
 
+  const file = path.join(__dirname, '/uploads/', req.params.id);
+  
+  
   var stat = fs.statSync(file);
   if (!stat.isFile()) return;
 
