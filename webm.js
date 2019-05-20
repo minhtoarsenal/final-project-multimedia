@@ -1,19 +1,12 @@
-var fs = require('fs');
-var util = require('util');
+const fs = require('fs');
+const util = require('util');
+const express = require('express')
+const multer = require('multer');
+const upload = multer();
+const path = require('path');
 
-if (process.argv.length != 4) {
-  console.log('Require the following command line arguments:' +
-    ' http_port webm_file');
-  console.log(' e.g. 9001 /home/foo/file.webm');
-  process.exit();
-}
-
-var port = process.argv[2];
-var file = process.argv[3];
-
-var express = require('express')
-
-var app = express();
+const port = 8001;
+const app = express();
 
 app.get('/', function(req, res){
   console.log(util.inspect(req.headers, showHidden=false, depth=0));
@@ -37,7 +30,6 @@ app.get('/', function(req, res){
   console.log('Browser requested bytes from ' + start + ' to ' +
     end + ' of file ' + file);
 
-  var date = new Date();
 
   res.writeHead(206, { // NOTE: a partial http response
     // 'Date':date.toUTCString(),
@@ -54,6 +46,42 @@ app.get('/', function(req, res){
   var stream = fs.createReadStream(file,
     { flags: 'r', start: start, end: end});
   stream.pipe(res);
+});
+
+app.post('/upload',upload.any(), (req, res) => {
+
+  if(req.files){
+      let user_upload = path.join(__dirname, '/uploads/', req.files[0].originalname);
+
+      fs.writeFile(user_upload, req.files[0].buffer, (err) => {
+        if (err) {
+            console.log('Error: ', err);
+            res.status(500).send('An error occurred: ' + err.message);
+        } else {
+            const videoList = [];
+            fs.readdir("./uploads", function(err, items) {
+              for (var i=0; i<items.length; i++) {
+                  videoList.push(items[i]);
+
+                  if(i == items.length - 1) {
+                    res.set('Access-Control-Allow-Origin', '*');
+                    res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+                    res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
+                    res.setHeader("Content-Type", "application/json");
+                    res.end(JSON.stringify({
+                      videoList: videoList
+                    }))
+                  }
+              }
+            });
+            
+        }
+    });
+  }else{
+      res.json({
+          uploaded : false
+      })
+  }
 });
 
 app.listen(port);

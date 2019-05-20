@@ -70,6 +70,7 @@
     "opus"
   ],
   "dependencies": {
+    "multer": "^1.4.1",
     "recordrtc": ">=5.5.4",
     "video.js": ">=6.2.7",
     "videojs-wavesurfer": ">=2.8.0",

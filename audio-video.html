@@ -13,6 +13,7 @@
     <script src="node_modules/video.js/dist/video.min.js"></script>
     <script src="node_modules/recordrtc/RecordRTC.js"></script>
     <script src="node_modules/webrtc-adapter/out/adapter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
 
     <script src="dist/videojs.record.js"></script>
 
@@ -78,45 +79,33 @@
         // the blob object contains the recorded data that
         // can be downloaded by the user, stored on server etc.
         console.log("finished recording: ", player.recordedData);
-
-        // var formData = new FormData();
-        // formData.append('video', player.recordedData.video);
-
-        // xhr('http:localhost:8000/upload-video.php', formData, function (fName) {
-        //     console.log('Video successfully uploaded!');
-        // });
-
-        // function xhr(url, data, callback) {
-        //     var request = new XMLHttpRequest();
-        //     request.onreadystatechange = function () {
-        //         if (request.readyState == 4 && request.status == 200) {
-        //             callback(location.href + request.responseText);
-        //         }
-        //     };
-        //     request.open('POST', url);
-        //     request.send(data);
-        // }   
-
-        // upload recorded data 
         upload(player.recordedData);
       });
 
       function upload(blob) {
-          var serverUrl = 'http://localhost:8001/upload-video.php';
-          var formData = new FormData();
+          const serverUrl = 'http://localhost:8001/upload';
+          const formData = new FormData();
           formData.append('file', blob, blob.name);
 
-          console.log('upload recording ' + blob.name + ' to ' + serverUrl);
+          // fetch(serverUrl, {
+          //     method: 'POST',
+          //     mode: 'no-cors',
+          //     body: formData
+          // }).then (
+          //     success => console.log('success: ', success),
+          //     error => console.log("error: ", error)
+          // )
+          let config = {
+            header : {
+              'Content-Type' : 'multipart/form-data'
+            }
+          }
 
-          fetch(serverUrl, {
-              method: 'POST',
-              mode: 'no-cors',
-              body: formData
-          }).then (
-              success => console.log('upload recording complete.')
-          ).catch(
-              error => console.error('an upload error occured!')
-          );
+          axios.post(serverUrl,formData, config).then( data => {
+            console.log('success: ', data);
+          }, error => {
+            console.log('error: ', error)
+          })
       }
 
     </script>
